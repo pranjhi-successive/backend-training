@@ -23,5 +23,4 @@ export const authenticateJWT = (req, res, next) => {
   }
 };
 
-// Route handler for generating a dummy JWT token (for testing purposes)
 
