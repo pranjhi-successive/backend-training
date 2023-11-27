@@ -1,6 +1,6 @@
 
 import {appendFileSync} from "fs";
-import { add, div, mult, sub } from "./lib/math.js";
+import { add ,div, mult, sub } from "./src/lib/math";
 
 const Math=(num1,num2)=>{
     const csvData=[
