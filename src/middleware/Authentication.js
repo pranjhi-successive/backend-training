@@ -1,14 +1,14 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-// Secret key for JWT 
-const secretKey = 'hello';
+// Secret key for JWT
+const secretKey = "hello";
 
 // Middleware function for authentication which returns json
 export const authenticateJWT = (req, res, next) => {
-  const token = req.header('auth');
+  const token = req.header("auth");
 
   if (!token) {
-    return res.status(401).json({ message: 'Please enter token' });
+    return res.status(401).json({ message: "Please enter token" });
   }
 
   try {
@@ -19,8 +19,6 @@ export const authenticateJWT = (req, res, next) => {
     // Move to the next middleware or route handler
     next();
   } catch (error) {
-    return res.status(403).json({ message: 'Invalid token' });
+    return res.status(403).json({ message: "Invalid token" });
   }
 };
-
-
