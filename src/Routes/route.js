@@ -12,6 +12,20 @@ router.get("/", (req, res) => {
   res.send("Hello Welcome");
 });
 
+app.get('/asynchronouserror', async (req, res, next) => {
+  try {
+    setTimeout(() => {
+      throw new Error('Hello Async Error');
+    }, 3000);
+  } catch (error) {
+    next(error);
+  }
+});
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!, Please try after sometime. ' });
+});
+//Assignment-5 question no-6 is same as question no 5 of assignment-4
 
 //401 Error
 router.get("/secure", authenticateJWT, (req, res) => {
