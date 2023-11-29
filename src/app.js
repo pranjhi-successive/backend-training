@@ -1,4 +1,4 @@
-import router from "./Routes/route.js";
+import router from "./routes/route.js";
 import Express from "express";
 
 const app = Express();
