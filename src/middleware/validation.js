@@ -11,9 +11,9 @@ export const userSchema = Joi.object({
 // Validation middleware function
 const validateRequest = (schema) => {
   return (req, res, next) => {
-    const { error } = schema.validate(req.body);
+    const { error } = schema.validate(req.body,{abortEarly:false});
     if (error) {
-      return res.status(400).json({ error: error.details[0].message });
+      return res.status(400).json({ error: error });
     }
     next();
   };
