@@ -1,4 +1,6 @@
 import Joi from "joi";
+import { Request, Response, NextFunction } from "express";
+
 
 // validation schema
 export const userSchema = Joi.object({
@@ -9,8 +11,8 @@ export const userSchema = Joi.object({
 });
 
 // Validation middleware function
-const validateRequest = (schema) => {
-  return (req, res, next) => {
+const validateRequest = (schema:any) => {
+  return (req:Request, res:Response, next:NextFunction) => {
     const { error } = schema.validate(req.body,{abortEarly:false});
     if (error) {
       return res.status(400).json({ error: error });

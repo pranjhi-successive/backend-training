@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 
 // Secret key for JWT
 const secretKey = "hello";
 
 // Middleware function for authentication which returns json
-export const authenticateJWT = (req, res, next) => {
-  const token = req.header("auth");
+export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.headers["authorization"]?.split(" ")[0]
 
   if (!token) {
     return res.status(401).json({ message: "Please enter token" });
@@ -15,7 +16,7 @@ export const authenticateJWT = (req, res, next) => {
     // Verify the token
     const decoded = jwt.verify(token, secretKey);
     // Attach the user information to the request
-    req.user = decoded;
+    req.body.user = decoded;
     // Move to the next middleware or route handler
     next();
   } catch (error) {

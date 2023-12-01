@@ -1,7 +1,9 @@
 import Joi from "joi";
+import { Request, Response, NextFunction } from "express";
+
 
 // Middleware function for validating registration form
-const validateRegistration = (req, res, next) => {
+const validateRegistration = (req:Request, res:Response, next:NextFunction) => {
   // Define the validation schema using Joi
   const schema = Joi.object({
     username: Joi.string().alphanum().min(3).max(30).required(),
