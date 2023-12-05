@@ -1,4 +1,9 @@
-import { Request, Response, NextFunction, Router } from "express";
+import {
+  type Request,
+  type Response,
+  type NextFunction,
+  Router,
+} from "express";
 
 class ValidateNumericMiddleware {
   path: string;
@@ -6,8 +11,8 @@ class ValidateNumericMiddleware {
   public validateNumeric = (
     req: Request,
     res: Response,
-    next: NextFunction
-  ) => {
+    next: NextFunction,
+  ): any => {
     const numeric = ["parameter1", "parameter2"];
     for (const param of numeric) {
       if (req.query[param] && isNaN(Number(req.query[param]))) {
@@ -18,16 +23,17 @@ class ValidateNumericMiddleware {
     }
     next();
   };
+
   constructor() {
     this.path = "/numeric";
     this.initializeRoutes();
   }
 
-  private initializeRoutes() {
+  private initializeRoutes(): void {
     this.router.get(this.path, this.getnumeric);
   }
 
-  private getnumeric = (req: Request, res: Response) => {
+  private readonly getnumeric = (req: Request, res: Response): void => {
     res.status(200).json({
       status: "OK",
       message: " successfully executed",

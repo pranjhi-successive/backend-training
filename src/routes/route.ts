@@ -1,6 +1,5 @@
-import express from "express";
+import express, { type Request, type Response } from "express";
 
-import { Request, Response, NextFunction } from "express";
 import {
   AuthMiddleware,
   HealthCheck,
@@ -24,14 +23,14 @@ router.get(authMiddleware.path, authMiddleware.authenticateJWT, (req, res) => {
 
 const addCustomHeaderMiddleware = new AddCustomHeaderMiddleware(
   "hello",
-  "header12345"
+  "header12345",
 );
 router.get(
   addCustomHeaderMiddleware.path,
   addCustomHeaderMiddleware.addCustomHeader,
   (req, res) => {
     res.send("successfully executed");
-  }
+  },
 );
 
 const validation = new Validation();
@@ -40,7 +39,7 @@ router.post(
   validation.validationMiddlewareRequest,
   (req: Request, res: Response) => {
     res.json({ message: "User route handled successfully" });
-  }
+  },
 );
 
 router.post(
@@ -48,7 +47,7 @@ router.post(
   validation.validationMiddlewareRequest,
   (req: Request, res: Response) => {
     res.json({ message: "Post route handled successfully" });
-  }
+  },
 );
 const validationMiddleware = new ValidationMiddleware();
 router.post(
@@ -56,7 +55,7 @@ router.post(
   validationMiddleware.validateRegistration,
   (req: Request, res: Response) => {
     res.status(200).json({ message: "Registration successful" });
-  }
+  },
 );
 const healthCheck = new HealthCheck();
 router.get(healthCheck.path, healthCheck.getHealth);
@@ -64,13 +63,14 @@ const ipVerification = new IpVerification();
 
 router.get(
   ipVerification.path,
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   ipVerification.ipCheckMiddleware,
   (req: Request, res: Response) => {
     res.status(200).send({
       status: true,
       message: "IP test completed!",
     });
-  }
+  },
 );
 const rateLimiter = new RateLimiter();
 router.get(rateLimiter.path, rateLimiter.router);
@@ -84,7 +84,7 @@ router.get(
   validateNumericMiddleware.router,
   (req: Request, res: Response) => {
     res.send(req.query);
-  }
+  },
 );
 const schemaValidation = new SchemaValidation();
 router.post(
@@ -93,7 +93,7 @@ router.post(
   (req: Request, res: Response) => {
     const user = req.body;
     res.json({ message: "User created successfully", user });
-  }
+  },
 );
 
 export default router;

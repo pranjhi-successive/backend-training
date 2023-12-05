@@ -1,6 +1,6 @@
 import Joi from "joi";
 import data2 from "../utils/Data";
-import { Request, Response, NextFunction, Router } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 class Validation {
   userpath: string;
   postpath: string;
@@ -13,8 +13,8 @@ class Validation {
   public validationMiddlewareRequest = (
     req: Request,
     res: Response,
-    next: NextFunction
-  ) => {
+    next: NextFunction,
+  ): any => {
     const route = req.path;
     // console.log(route);
     const rules = data2[route];

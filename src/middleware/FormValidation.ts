@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Request, Response, NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 
 // Middleware function for validating registration form
 class ValidationMiddleware {
@@ -11,14 +11,14 @@ class ValidationMiddleware {
   public validateRegistration = (
     req: Request,
     res: Response,
-    next: NextFunction
-  ) => {
+    next: NextFunction,
+  ): any => {
     // Define the validation schema using Joi
     const schema = Joi.object({
       username: Joi.string().alphanum().min(3).max(30).required(),
       email: Joi.string().email().required(),
       password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+        .pattern(/^[a-zA-Z0-9]{3,30}$/)
         .required(),
     });
 

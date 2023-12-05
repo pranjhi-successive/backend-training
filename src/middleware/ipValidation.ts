@@ -1,14 +1,15 @@
-import { Request, Response, NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 class IpVerification {
   path: string;
   constructor() {
     this.path = "/ip";
   }
+
   public ipCheckMiddleware = async (
     req: Request,
     res: Response,
-    next: NextFunction
-  ) => {
+    next: NextFunction,
+  ): Promise<any> => {
     const expectedIp = "::1";
 
     try {

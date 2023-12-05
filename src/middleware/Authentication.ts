@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 
 // Secret key for JWT
 class AuthMiddleware {
@@ -11,13 +11,14 @@ class AuthMiddleware {
     this.path = "/protected";
     this.secretKey = "hello";
   }
+
   // Middleware function for authentication which returns json
   public authenticateJWT = (
     req: Request,
     res: Response,
-    next: NextFunction
-  ) => {
-    const token = req.headers["authorization"]?.split(" ")[0];
+    next: NextFunction,
+  ): any => {
+    const token = req.headers.authorization?.split(" ")[0];
 
     if (!token) {
       return res.status(401).json({ message: "Please enter token" });

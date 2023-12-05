@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction, Router } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 
 class AddCustomHeaderMiddleware {
   path: string;
-  private headerName: string;
-  private headerValue: string;
+  private readonly headerName: string;
+  private readonly headerValue: string;
   constructor(headerName: string, headerValue: string) {
     this.headerName = headerName;
     this.headerValue = headerValue;
@@ -13,8 +13,8 @@ class AddCustomHeaderMiddleware {
   public addCustomHeader = (
     req: Request,
     res: Response,
-    next: NextFunction
-  ) => {
+    next: NextFunction,
+  ): any => {
     res.header(this.headerName, this.headerValue);
     next();
   };

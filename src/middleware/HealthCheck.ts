@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-import { string } from "joi";
+import { type Request, type Response } from "express";
 
 class HealthCheck {
   path: string;
@@ -7,7 +6,8 @@ class HealthCheck {
   constructor() {
     this.path = "/health";
   }
-  public getHealth = (req: Request, res: Response) => {
+
+  public getHealth = (req: Request, res: Response): void => {
     res.status(200).json({ status: "OK", message: "passed successfully" });
   };
 }

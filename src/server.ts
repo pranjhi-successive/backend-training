@@ -10,8 +10,8 @@ interface ServerConfig {
 }
 
 class Server {
-  private app: express.Application;
-  private config: ServerConfig;
+  private readonly app: express.Application;
+  private readonly config: ServerConfig;
 
   constructor(config: ServerConfig) {
     this.config = config;
@@ -20,15 +20,15 @@ class Server {
     this.configureRoutes();
   }
 
-  private configureMiddleware() {
+  private configureMiddleware(): any {
     this.app.use(express.json());
   }
 
-  private configureRoutes() {
+  private configureRoutes(): any {
     this.app.use("/", router);
   }
 
-  public listen() {
+  public listen(): any {
     this.app.listen(this.config.port, () => {
       console.log(`App listening on port ${this.config.port}`);
     });
