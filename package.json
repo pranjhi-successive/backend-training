@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "This guide provides step-by-step instructions to set up the stable LTS version of Node.js on a Debian-based system. Follow the instructions below to install Node.js and npm.",
-  "main": "./src/app.js",
+  "main": "./src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon"

@@ -88,4 +88,82 @@ function logMessage(): void {
   console.log("This is a log message");
 }
 ```
+# TypeScript: Classes and Interfaces
+
+TypeScript is a superset of JavaScript that adds static typing to the language. It introduces features from object-oriented programming, including classes and interfaces.
+
+## Classes
+
+In TypeScript, classes provide a blueprint for creating objects with shared properties and methods. They allow you to encapsulate and organize your code in a more structured manner.
+
+### Declaring a Class
+
+```typescript
+class Animal {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  makeSound(): void {
+    console.log("Some generic sound");
+  }
+}
+```
+### Creating Instances
+```typescript
+const dog = new Animal("Dog");
+dog.makeSound(); // Output: Some generic sound
+```
+### Inheritance
+You can use inheritance to create a subclass that inherits properties and methods from a parent class.
+```typescript
+class Dog extends Animal {
+  bark(): void {
+    console.log("Woof! Woof!");
+  }
+}
+
+const myDog = new Dog("Buddy");
+myDog.makeSound(); // Output: Some generic sound
+myDog.bark(); // Output: Woof! Woof!
+
+```
+## Interfaces
+Interfaces define the structure for objects in TypeScript. They allow you to enforce a certain shape for classes and objects.
+
+### Declaring an Interface
+```typescript
+interface Shape {
+  color: string;
+  area(): number;
+}
+```
+### Implementing an Interface
+Classes can implement interfaces to ensure they have the required properties and methods.
+```typescript
+class Circle implements Shape {
+  constructor(public radius: number, public color: string) {}
+
+  area(): number {
+    return Math.PI * this.radius ** 2;
+  }
+}
+
+const myCircle = new Circle(5, "red");
+console.log(myCircle.area()); // Output: 78.54
+```
+### Extending Interfaces
+You can extend interfaces to create more specific interfaces.
+```typescript
+interface Animal {
+  name: string;
+}
+
+interface Dog extends Animal {
+  bark(): void;
+}
+```
+These are just the basics of classes and interfaces in TypeScript. You can explore more advanced features and usage patterns based on your project requirements.
 
