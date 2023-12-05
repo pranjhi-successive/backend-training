@@ -1,11 +1,12 @@
 import Joi from "joi";
+type Data2 = Record<string, any>;
 
-const Data2 = {
+const data2: Data2 = {
   "/user": {
     username: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+      .pattern(/^[a-zA-Z0-9]{3,30}$/)
       .required(),
   },
 
@@ -15,4 +16,4 @@ const Data2 = {
   },
 };
 
-export default Data2;
+export default data2;
