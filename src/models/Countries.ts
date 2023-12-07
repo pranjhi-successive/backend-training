@@ -1,6 +1,6 @@
-import mongoose, { type Document, Schema, type Model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-interface ICountry extends Document {
+export interface ICountry {
   CountryName: string;
   PlayersName: string[];
 }
@@ -10,9 +10,4 @@ const CountrySchema = new Schema<ICountry>({
   PlayersName: [{ type: String, required: true }],
 });
 
-const CountryModel: Model<ICountry> = mongoose.model<ICountry>(
-  "Country",
-  CountrySchema,
-);
-
-export { type ICountry, CountryModel };
+export const CountryModel = mongoose.model<ICountry>("Country", CountrySchema);

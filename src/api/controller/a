@@ -1,0 +1,69 @@
+// import { Request, Response } from 'express';
+// import CountryService from './CountryService';
+
+// class CountryController {
+//   private countryService: CountryService;
+
+//   constructor() {
+//     this.countryService = new CountryService();
+//   }
+
+//   async getCountryByName(req: Request, res: Response): Promise<void> {
+//     const { countryName } = req.params;
+//     try {
+//       const country = await this.countryService.getCountryByName(countryName);
+//       res.json(country);
+//     } catch (error) {
+//       console.error(`Error getting country by name:`, error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   }
+
+//   async addPlayerToCountry(req: Request, res: Response): Promise<void> {
+//     const { countryName, playerName } = req.body;
+//     try {
+//       await this.countryService.addPlayerToCountry(countryName, playerName);
+//       res.status(200).send('Player added successfully');
+//     } catch (error) {
+//       console.error(`Error adding player to country:`, error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   }
+
+//   async removePlayerFromCountry(req: Request, res: Response): Promise<void> {
+//     const { countryName, playerName } = req.body;
+//     try {
+//       await this.countryService.removePlayerFromCountry(countryName, playerName);
+//       res.status(200).send('Player removed successfully');
+//     } catch (error) {
+//       console.error(`Error removing player from country:`, error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   }
+// }
+
+// export default CountryController;
+import CountryRepository from './CountryRepository';
+import { ICountry } from '../../models/Countries';
+
+class CountryService {
+  private countryRepository: CountryRepository;
+
+  constructor() {
+    this.countryRepository = new CountryRepository();
+  }
+
+  async getCountryByName(countryName: string): Promise<ICountry | null> {
+    return this.countryRepository.findCountryByName(countryName);
+  }
+
+  async addPlayerToCountry(countryName: string, playerName: string): Promise<void> {
+    return this.countryRepository.addPlayer(countryName, playerName);
+  }
+
+  async removePlayerFromCountry(countryName: string, playerName: string): Promise<void> {
+    return this.countryRepository.removePlayerFromCountry(countryName, playerName);
+  }
+}
+
+export default CountryService;
