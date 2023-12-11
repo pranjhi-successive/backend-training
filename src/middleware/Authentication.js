@@ -21,6 +21,5 @@ export const authenticateJWT = (req, res, next) => {
   } catch (error) {
     return res.status(403).json({ message: "Invalid token" });
   }
- HEAD:src/middleware/Authentication.js
 };
 
