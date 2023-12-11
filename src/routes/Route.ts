@@ -12,6 +12,8 @@ import {
   ValidationMiddleware,
   AddCustomHeaderMiddleware,
 } from "../middleware/index";
+import CountryController from "../modules/country/controller/Country";
+import CountryService from "../modules/country/services/Country";
 
 const router = express.Router();
 
@@ -95,5 +97,22 @@ router.post(
     res.json({ message: "User created successfully", user });
   },
 );
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const countryService = new CountryService();
+const countryController = new CountryController();
+// const countryController = new CountryController();
+// router.get(
+//   "/countryName",
+//   // eslint-disable-next-line @typescript-eslint/no-misused-promises
+//   countryController.getCountryByName.bind(countryController),
+// );
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+router.post("/addPlayer", async (req, res) => {
+  await countryController.addPlayer(req, res);
+});
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+router.post("/name", async (req, res) => {
+  await countryController.getCountryByName(req, res);
+});
 
 export default router;

@@ -1,7 +1,7 @@
 const countriesData = [
   {
-    CountryName: "India",
-    PlayersName: [
+    countryName: "India",
+    playersName: [
       "Gurmeet Singh",
       "Dheeraj Singh Moirangthem",
       "Sumit Rathi",
@@ -13,8 +13,8 @@ const countriesData = [
     ],
   },
   {
-    CountryName: "USA",
-    PlayersName: [
+    countryName: "USA",
+    playersName: [
       "Christian Pulisic",
       "Weston McKennie",
       "Giovanni Reyna",
@@ -28,8 +28,8 @@ const countriesData = [
     ],
   },
   {
-    CountryName: "Brazil",
-    PlayersName: [
+    countryName: "Brazil",
+    playersName: [
       "Neymar Jr.",
       "Philippe Coutinho",
       "Gabriel Jesus",
@@ -43,8 +43,8 @@ const countriesData = [
     ],
   },
   {
-    CountryName: "Germany",
-    PlayersName: [
+    countryName: "Germany",
+    playersName: [
       "Manuel Neuer",
       "Joshua Kimmich",
       "Toni Kroos",

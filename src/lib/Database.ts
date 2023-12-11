@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import countriesData from "./country";
+import countriesData from "../utils/Country";
 import { CountryModel } from "../models/Countries";
 // import countriesData from "./country";
 

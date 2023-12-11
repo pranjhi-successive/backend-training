@@ -1,8 +1,8 @@
-import Repository from "./Repository";
+import Repository from "../../../lib/base/Repository";
 
-import { type ICountry, CountryModel } from "../../models/Countries";
+import { type ICountry, CountryModel } from "../../../models/Countries";
 
-class CountryRepository extends Repository<ICountry> {
+class Country extends Repository<ICountry> {
   constructor() {
     super(CountryModel);
   }
@@ -16,26 +16,26 @@ class CountryRepository extends Repository<ICountry> {
 
   public async addPlayer(
     countryName: string,
-    playerName: string,
+    playerName: string[],
   ): Promise<void> {
     try {
-      await this.updateOne(
+      await CountryModel.create(
         { CountryName: countryName },
-        { $push: { PlayersName: playerName } },
+        { PlayersName: playerName },
       );
     } catch (error) {
-      console.error(`Error adding player to ${countryName}:`, error);
+      console.error(`Error adding player:`, error);
     }
   }
 
   public async removePlayerFromCountry(
     countryName: string,
-    playerName: string,
+    playerName: string[],
   ): Promise<void> {
     try {
-      await this.updateOne(
+      await CountryModel.updateOne(
         { CountryName: countryName },
-        { $pull: { PlayersName: playerName } },
+        { PlayersName: playerName },
       );
     } catch (error) {
       console.error(`Error removing player from ${countryName}:`, error);
@@ -43,4 +43,4 @@ class CountryRepository extends Repository<ICountry> {
   }
 }
 
-export default CountryRepository;
+export default Country;

@@ -1,13 +1,10 @@
 import mongoose, { Schema } from "mongoose";
+import { type ICountry } from "../entities/CountryInterface";
 
-export interface ICountry {
-  CountryName: string;
-  PlayersName: string[];
-}
-
-const CountrySchema = new Schema<ICountry>({
-  CountryName: { type: String, required: true },
-  PlayersName: [{ type: String, required: true }],
+const countrySchema = new Schema<ICountry>({
+  countryName: { type: String, required: true },
+  playersName: [{ type: String, required: true }],
 });
 
-export const CountryModel = mongoose.model<ICountry>("Country", CountrySchema);
+export const CountryModel = mongoose.model<ICountry>("Country", countrySchema);
+export type { ICountry };

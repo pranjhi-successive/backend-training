@@ -9,7 +9,7 @@ const serverInstance = new Server({
   secretKey: "hello",
   customHeaderName: "hello",
   customHeaderValue: "pranjhi",
-  MONGO_URL: serverConfig.MONGO_URL,
+  mongoUrl: serverConfig.mongoUrl,
 });
 serverInstance.listen();
 void serverInstance.run();

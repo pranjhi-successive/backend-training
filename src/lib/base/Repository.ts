@@ -22,4 +22,8 @@ export default class Repository<T extends Document> {
   ): Promise<void> {
     await this.model.updateOne(conditions, update).exec();
   }
+
+  async create(conditions: FilterQuery<T>): Promise<T> {
+    return await this.model.create(conditions);
+  }
 }

@@ -4,11 +4,11 @@ import AddCustomHeaderMiddleware from "../middleware/CustomHeader";
 import Validation from "../middleware/FetchValidation";
 import ValidationMiddleware from "../middleware/FormValidation";
 import HealthCheck from "../middleware/HealthCheck";
-import IpVerification from "../middleware/ipValidation";
-import RateLimiter from "../middleware/limiter";
-import ValidateNumericMiddleware from "../middleware/numericValidation";
+import IpVerification from "./IpValidation";
+import RateLimiter from "./Limiter";
+import ValidateNumericMiddleware from "./NumericValidation";
 import Logger from "../middleware/Logger";
-import SchemaValidation from "../middleware/validation";
+import SchemaValidation from "./Validation";
 export {
   AuthMiddleware,
   AddCustomHeaderMiddleware,

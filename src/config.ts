@@ -1,9 +1,11 @@
 import dotenv from "dotenv";
 dotenv.config();
 interface IServerConfig {
-  MONGO_URL: string;
+  mongoUrl: string;
+  port: string;
 }
 const serverConfig: IServerConfig = {
-  MONGO_URL: process.env.MONGO_URL ?? "",
+  mongoUrl: process.env.MONGO_URL ?? "",
+  port: process.env.PORT ?? "3001",
 };
 export { serverConfig, type IServerConfig };

@@ -1,6 +1,6 @@
 import express from "express";
-import router from "./routes/route";
-import Database from "./lib/database";
+import router from "./routes/Route";
+import Database from "./lib/Database";
 
 interface ServerConfig {
   port: number;
@@ -8,7 +8,7 @@ interface ServerConfig {
   secretKey: string;
   customHeaderName: string;
   customHeaderValue: string;
-  MONGO_URL: string;
+  mongoUrl: string;
 }
 class Server {
   private readonly app: express.Application;
