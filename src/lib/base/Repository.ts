@@ -6,7 +6,7 @@ import {
 } from "mongoose";
 
 export default class Repository<T extends Document> {
-  private readonly model: Model<T>;
+  public readonly model: Model<T>;
 
   constructor(model: Model<T>) {
     this.model = model;
@@ -23,7 +23,11 @@ export default class Repository<T extends Document> {
     await this.model.updateOne(conditions, update).exec();
   }
 
-  async create(conditions: FilterQuery<T>): Promise<T> {
-    return await this.model.create(conditions);
+  async create(data: Partial<T>): Promise<T> {
+    return await this.model.create(data);
+  }
+
+  async findAll(conditions: FilterQuery<T> = {}): Promise<T[]> {
+    return await this.model.find(conditions).exec();
   }
 }

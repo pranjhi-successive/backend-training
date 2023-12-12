@@ -1,5 +1,5 @@
 import express, { type Request, type Response } from "express";
-
+// import bodyParser from "body-parser";
 import {
   AuthMiddleware,
   HealthCheck,
@@ -14,6 +14,8 @@ import {
 } from "../middleware/index";
 import CountryController from "../modules/country/controller/Country";
 import CountryService from "../modules/country/services/Country";
+// import { MobileController } from "../modules/mobile/controller/Mobile";
+import mobileRouter from "../modules/mobile/route";
 
 const router = express.Router();
 
@@ -100,12 +102,7 @@ router.post(
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const countryService = new CountryService();
 const countryController = new CountryController();
-// const countryController = new CountryController();
-// router.get(
-//   "/countryName",
-//   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-//   countryController.getCountryByName.bind(countryController),
-// );
+
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.post("/addPlayer", async (req, res) => {
   await countryController.addPlayer(req, res);
@@ -114,5 +111,17 @@ router.post("/addPlayer", async (req, res) => {
 router.post("/name", async (req, res) => {
   await countryController.getCountryByName(req, res);
 });
+// router.use(bodyParser.json());
 
+// const mobileController = new MobileController();
+
+// // eslint-disable-next-line @typescript-eslint/no-misused-promises
+// router.get("/api/mobiles", async (req, res) => {
+//   try {
+//     await mobileController.getAllMobiles(req, res);
+//   } catch (error) {
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+router.use("/api", mobileRouter);
 export default router;
