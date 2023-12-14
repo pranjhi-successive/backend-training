@@ -1,4 +1,6 @@
-const ipCheckMiddleware = async (req, res, next) => {
+import { Request, Response, NextFunction } from "express";
+
+const ipCheckMiddleware = async (req:Request, res:Response, next:NextFunction) => {
   const expectedIp = "::ffff:127.0.0.1";
 
   try {

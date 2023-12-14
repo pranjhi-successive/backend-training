@@ -1,9 +1,13 @@
 import Joi from "joi";
-import Data2 from "../utils/Data.js";
+import data2 from "../utils/Data.js";
+import { Request, Response, NextFunction } from "express";
 
-const validationMiddlewareRequest = (req, res, next) => {
+const validationMiddlewareRequest = (req:Request,res:Response, next:NextFunction) => {
   const route = req.path;
-  const rules = Data2[route];
+  // console.log(route);
+  const rules = data2[route];
+// console.log(rules);
+
 
   if (rules) {
     const { error } = Joi.object(rules).validate(req.body, {

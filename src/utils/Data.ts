@@ -1,7 +1,10 @@
 import Joi from "joi";
+interface Data2{
+  [key:string]:any;
+}
 
-const Data2 = {
-  "/user": {
+const data2:Data2 = {
+  "/user":{
     username: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string()
@@ -15,4 +18,4 @@ const Data2 = {
   },
 };
 
-export default Data2;
+export default data2;

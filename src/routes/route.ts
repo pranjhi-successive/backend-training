@@ -1,5 +1,5 @@
-import express from "express";
-
+import express, { Request, Response, NextFunction } from "express";
+import createError from "http-errors";
 import {
   addCustomHeader,
   logger,
@@ -14,6 +14,7 @@ import {
   ipCheckMiddleware,
   validateNumeric,
 } from "../middleware/index.js";
+import { any } from "joi";
 
 const router = express.Router();
 
@@ -25,27 +26,26 @@ router.use(logger);
 router.use("/user", validationMiddlewareRequest);
 router.use("/post", validationMiddlewareRequest);
 
-router.post("/user", validationMiddlewareRequest, (req, res) => {
+router.post("/user", (req: Request, res: Response) => {
   res.json({ message: "User route handled successfully" });
 });
 
-router.post("/post", validationMiddlewareRequest, (req, res) => {
+router.post("/post", (req: Request, res: Response) => {
   res.json({ message: "Post route handled successfully" });
 });
 
-router.get("/ip", ipCheckMiddleware, function (req, res) {
+router.get("/ip", ipCheckMiddleware, (req: Request, res: Response) => {
   res.status(200).send({
     status: true,
     message: "IP test completed!",
   });
 });
 
-//endpoints
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   res.send("Hello Welcome");
 });
 
-app.get('/asynchronouserror', async (req, res, next) => {
+router.get("/asynchronouserror", async (req, res, next) => {
   try {
     setTimeout(() => {
       throw new Error('Hello Async Error');
@@ -55,50 +55,32 @@ app.get('/asynchronouserror', async (req, res, next) => {
   }
 });
 
-app.use((err, req, res, next) => {
+router.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!, Please try after sometime. ' });
-});
-
-//Assignment-5 question no-6 is same as question no 5 of assignment-4
-
-//401 Error
-router.get("/secure", authenticateJWT, (req, res) => {
-  if (!authenticateJWT) {
-    next(createError(401, " User not authenticated"));
-  } else {
-    res.json({ message: "Access granted", user: req.user });
-  }
-});
-
-//endpoints for authentication
-router.get("/data", authenticateJWT, (req, res) => {
-  res.send(Data);
-});
-
-router.post("/mock", authenticateJWT, (req, res) => {
-  const newData = req.body;
-  Data.push(newData);
-  res.send(Data);
-});
-
-router.get("/secure", authenticateJWT, (req, res) => {
-  res.json({ message: "Access granted", user: req.user });
-});
-
-router.get("/protected", authenticateJWT, (req, res) => {
-  res.json({
-    message: "You have access to this protected route!",
-    user: req.user,
+  res.status(500).json({
+    error: 'Something went wrong!, Please try after sometime. ',
   });
 });
 
-//404 Not Found Error
+router.get("/secure", authenticateJWT, (req: Request, res: Response, next: NextFunction) =>{
+  if (!req.body.user) {
+    next(createError(401, "User not authenticated"));
+  } else {
+    res.json({ message: "Access granted", user: req.body.user });
+  }
+});
+
+router.get("/protected", authenticateJWT, (req: Request, res: Response) => {
+  res.json({
+    message: "You have access to this protected route!",
+    user: req.body.user,
+  });
+});
+
 router.get("/not-found", (req, res, next) => {
   next(createError(404, "Not Found: The requested resource does not exist"));
 });
 
-//400 Bad request error
 router.get("/bad-request", (req, res, next) => {
   const missingParameter = req.query.param;
   if (!missingParameter) {
@@ -118,7 +100,7 @@ router.get("/example", (req, res, next) => {
   }
 });
 
-router.use((err, req, res, next) => {
+router.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
     error: {
@@ -127,26 +109,26 @@ router.use((err, req, res, next) => {
   });
 });
 
-router.post("/users", validateRequest(userSchema), (req, res) => {
+router.post("/users", validateRequest(userSchema), (req: Request, res: Response) => {
   const user = req.body;
   res.json({ message: "User created successfully", user });
 });
 
-router.post("/register", validateRegistration, (req, res) => {
+router.post("/register", validateRegistration, (req: Request, res: Response) => {
   res.status(200).json({ message: "Registration successful" });
 });
 
-router.post("/route", validateRequest2, (req, res) => {
+router.post("/route", validateRequest2, (req: Request, res: Response) => {
   const { a1, a2 } = req.body;
-  res.json({ message: " accessed successfully!", a1, a2 });
+  res.json({ message: "Accessed successfully!", a1, a2 });
 });
 
-router.post("/secondRoute", validateRequest2, (req, res) => {
+router.post("/secondRoute", validateRequest2, (req: Request, res: Response) => {
   const { a3 } = req.body;
-  res.json({ message: "accessed successfully!", a3 });
+  res.json({ message: "Accessed successfully!", a3 });
 });
 
-router.get("/numeric", validateNumeric, (req, res) => {
+router.get("/numeric", validateNumeric, (req: Request, res: Response) => {
   res.send(req.query);
 });
 
