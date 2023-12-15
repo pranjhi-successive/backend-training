@@ -1,15 +1,15 @@
-import { type Request, type Response } from "express";
+import { type Request, type Response } from 'express';
 
 class HealthCheck {
-  path: string;
+    path: string;
 
-  constructor() {
-    this.path = "/health";
-  }
+    constructor() {
+        this.path = '/health';
+    }
 
-  public getHealth = (req: Request, res: Response): void => {
-    res.status(200).json({ status: "OK", message: "passed successfully" });
-  };
+    static getHealth = (req: Request, res: Response): void => {
+        res.status(200).json({ status: 'OK', message: 'passed successfully' });
+    };
 }
 
 export default HealthCheck;

@@ -1,35 +1,41 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import express from "express";
+import express from 'express';
 
-import { model } from "mongoose";
-import { MobileRepository } from "./repository/Mobile";
-import { mobileSchema } from "./repository/schema/Mobile";
-import { type Mobile } from "../../entities/MobileInterface";
-import { MobileService } from "./services/mobile";
-import { MobileController } from "./controller/Mobile";
+import { model } from 'mongoose';
+import MobileRepository from './repository/Mobile';
+import mobileSchema from './repository/schema/Mobile';
+import { Mobile } from '../../entities/MobileInterface';
+import MobileService from './services/mobile';
+import MobileController from './controller/Mobile';
 
 const mobileRouter = express.Router();
+mobileRouter.use(express.json());
 
 const mobileRepository = new MobileRepository(
-  model<Mobile>("Mobile", mobileSchema),
-  "your_additional_property",
+    model<Mobile>('Mobile', mobileSchema),
+    'your_additional_property',
 );
 const mobileService = new MobileService(mobileRepository);
-
 const mobileController = new MobileController(mobileService);
-
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-// mobileRouter.post("/mobiles", async (req, res) => {
-//   await mobileController.getAllMobiles(req, res);
-//   return mobileData;
-// });t
-
-// eslint-disable-next-line @typescript-eslint/unbound-method
-mobileRouter.get("/mobiles", mobileController.getAllMobiles);
-
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-mobileRouter.post("/mobiles/:id", async (req, res) => {
-  await mobileController.getMobileById(req, res);
+mobileRouter.get('/mobiles', MobileController.getAllMobiles);
+mobileRouter.post('/m/:id', async (req, res) => {
+    await mobileController.getMobileById(req, res);
 });
-
+mobileRouter.delete('/mobiles/:id', mobileController.deleteMobileByBrand);
+mobileRouter.post('/create', async (req, res) => {
+    await mobileController.createMobile(req, res, req.body);
+});
+mobileRouter.post('/seed-data', async (req, res) => {
+    await MobileService.seedData();
+    res.status(200).json({ message: 'Data seeded successfully' });
+});
+mobileRouter.get('/mobile/color/:color', async (req, res) => {
+    await mobileController.getMobilesByColor(req, res);
+});
+mobileRouter.put('/mobile/:brand', async (req, res) => {
+    await mobileController.updateMobileByBrand(req, res);
+});
+mobileRouter.get('*', (req, res) => {
+    res.status(404).json({ message: 'Not Found' });
+});
 export default mobileRouter;

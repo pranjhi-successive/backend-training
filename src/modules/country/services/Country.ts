@@ -1,29 +1,31 @@
-import { type ICountry } from "../../../models/Countries";
-import CountryRepository from "../repository/Country";
+import { type ICountry } from '../../../models/Countries';
+import CountryRepository from '../repository/Country';
 
 class Country {
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly
-  private countryRepository: CountryRepository;
+    // eslint-disable-next-line @typescript-eslint/prefer-readonly
+    private countryRepository: CountryRepository;
 
-  constructor() {
-    this.countryRepository = new CountryRepository();
-  }
+    constructor() {
+        this.countryRepository = new CountryRepository();
+    }
 
-  async getCountryByName(countryName: string): Promise<ICountry | null> {
-    return await this.countryRepository.findCountryByName(countryName);
-  }
+    async getCountryByName(countryName: string): Promise<ICountry | null> {
+        const result = await this.countryRepository.findCountryByName(countryName);
+        return result;
+    }
 
-  async addPlayer(countryName: string, playerName: string[]): Promise<any> {
+    addPlayer = async (countryName: string, playerName: string[]): Promise<any> => {
     // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-    return await this.countryRepository.addPlayer(countryName, playerName);
-  }
+        const result = await this.countryRepository.addPlayer(countryName, playerName);
+        return result;
+    };
 
-  async removePlayer(countryName: string, playerName: string[]): Promise<void> {
-    await this.countryRepository.removePlayerFromCountry(
-      countryName,
-      playerName,
-    );
-  }
+    removePlayer = async (countryName: string, playerName: string[]): Promise<void> => {
+        await this.countryRepository.removePlayerFromCountry(
+            countryName,
+            playerName,
+        );
+    };
 }
 
 export default Country;

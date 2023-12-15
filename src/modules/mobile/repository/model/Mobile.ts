@@ -1,5 +1,6 @@
-import { model } from "mongoose";
-import { type Mobile } from "../../../../entities/MobileInterface";
-import { mobileSchema } from "../schema/Mobile";
+import { model } from 'mongoose';
+import { type Mobile } from '../../../../entities/MobileInterface';
+import mobileSchema from '../schema/Mobile';
 
-export const MobileModel = model<Mobile>("Mobile", mobileSchema);
+const MobileModel = model<Mobile>('Mobile', mobileSchema);
+export default MobileModel;
