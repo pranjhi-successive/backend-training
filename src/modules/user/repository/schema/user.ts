@@ -1,5 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-import { type IUser } from '../entities/UserInterface';
+import { Schema } from 'mongoose';
+import { IUser } from '../../entities/UserInterface';
 
 const userSchema = new Schema<IUser>({
     name: { type: String, required: true },
@@ -12,5 +12,4 @@ const userSchema = new Schema<IUser>({
         state: { type: String, required: true },
     },
 });
-const userModel = mongoose.model<IUser>('user', userSchema);
-export default userModel;
+export default userSchema;

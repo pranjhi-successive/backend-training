@@ -22,7 +22,7 @@ class MobileController {
                 time: new Date(),
             });
         } catch (error) {
-            // console.error('Error creating mobile:', error);
+            // // console.error('Error creating mobile:', error);
             res.status(500).json({
                 status: 'error',
                 message: 'Internal Server Error',
@@ -32,7 +32,7 @@ class MobileController {
     };
 
     static async getAllMobiles(req: Request, res: Response): Promise<any> {
-        // console.log('Reached controller');
+        // // // console.log('Reached controller');
         try {
             // const mobiles = await this.service.getAllMobiles();
             // const data = mobileData;
@@ -42,7 +42,7 @@ class MobileController {
                 time: new Date(),
             });
         } catch (error) {
-            // console.error('Error getting all mobiles:', error);
+            // // console.error('Error getting all mobiles:', error);
             res.status(500).json({
                 status: 'error',
                 message: 'Internal Server Error',
@@ -68,7 +68,7 @@ class MobileController {
                     .json({ status: 'not found', message: 'Mobile not found' });
             }
         } catch (error) {
-            // console.error('Error getting mobile by ID:', error);
+            // // console.error('Error getting mobile by ID:', error);
             res.status(500).json({
                 status: 'error',
                 message: 'Internal Server Error',
@@ -80,8 +80,8 @@ class MobileController {
 
     deleteMobileByBrand = async (req: Request, res: Response): Promise<void> => {
         const { id } = req.params;
-        // console.log('hello', req.params);
-        // console.log('heyyyyyyy', req.query);
+        // // // console.log('hello', req.params);
+        // // // console.log('heyyyyyyy', req.query);
         try {
             const deletedMobile = await this.service.deleteMobileByBrand(id);
 
@@ -97,7 +97,7 @@ class MobileController {
                     .json({ status: 'not found', message: 'Mobile not found' });
             }
         } catch (error: any) {
-            // console.error('Error deleting mobile:', error);
+            // // console.error('Error deleting mobile:', error);
             res.status(500).json({
                 status: 'error',
                 message: 'Internal Server Error',
@@ -119,13 +119,19 @@ class MobileController {
                     time: new Date(),
                 });
             } else {
-                res.status(404).json({ status: 'not found', message: 'Mobile not found' });
+                res.status(404).json({
+                    status: 'not found',
+                    message: 'Not found',
+                    time: new Date(),
+                });
             }
-        } catch (error) {
+        } catch (error:any) {
             res.status(500).json({
                 status: 'error',
                 message: 'Internal Server Error',
                 time: new Date(),
+                error: error.message,
+
             });
         }
     }
@@ -139,11 +145,13 @@ class MobileController {
                 data: mobiles,
                 time: new Date(),
             });
-        } catch (error) {
+        } catch (error : any) {
             res.status(500).json({
                 status: 'error',
                 message: 'Internal Server Error',
                 time: new Date(),
+                error: error.message,
+
             });
         }
     }

@@ -56,9 +56,9 @@ mongoose.connect('mongodb://localhost:27017/mydatabase', { useNewUrlParser: true
 
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'Connection error:'));
+db.on('error', // console.error.bind(// console, 'Connection error:'));
 db.once('open', () => {
-  console.log('Connected to MongoDB');
+  // console.log('Connected to MongoDB');
 });
 ```
 ### Defining a Schema
@@ -83,8 +83,8 @@ const newUser = new User({
 });
 
 newUser.save((err, user) => {
-  if (err) return console.error(err);
-  console.log('User saved:', user);
+  if (err) return // console.error(err);
+  // console.log('User saved:', user);
 });
 
 ```
@@ -92,20 +92,20 @@ newUser.save((err, user) => {
 ```javascript
 // Find all users
 User.find({}, (err, users) => {
-  if (err) return console.error(err);
-  console.log('All users:', users);
+  if (err) return // console.error(err);
+  // console.log('All users:', users);
 });
 
 // Update a user
 User.updateOne({ name: 'John Doe' }, { age: 26 }, (err, result) => {
-  if (err) return console.error(err);
-  console.log('User updated:', result);
+  if (err) return // console.error(err);
+  // console.log('User updated:', result);
 });
 
 // Delete a user
 User.deleteOne({ name: 'John Doe' }, (err) => {
-  if (err) return console.error(err);
-  console.log('User deleted');
+  if (err) return // console.error(err);
+  // console.log('User deleted');
 });
 
 ```
@@ -113,7 +113,7 @@ User.deleteOne({ name: 'John Doe' }, (err) => {
 ```javascript
 userSchema.pre('save', function (next) {
   // Middleware logic before saving a user
-  console.log('About to save:', this.name);
+  // console.log('About to save:', this.name);
   next();
 });
 

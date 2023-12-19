@@ -25,10 +25,10 @@ class IpVerification {
                 return;
             }
 
-            // console.log('Valid Ip address!');
+            // // // console.log('Valid Ip address!');
             next();
         } catch (error) {
-            // console.log(error);
+            // // // console.log(error);
             res.status(500).send({
                 status: false,
                 message: 'Internal Server Error',

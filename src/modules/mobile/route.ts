@@ -4,7 +4,7 @@ import express from 'express';
 import { model } from 'mongoose';
 import MobileRepository from './repository/Mobile';
 import mobileSchema from './repository/schema/Mobile';
-import { Mobile } from '../../entities/MobileInterface';
+import { Mobile } from './entities/MobileInterface';
 import MobileService from './services/mobile';
 import MobileController from './controller/Mobile';
 
@@ -27,7 +27,12 @@ mobileRouter.post('/create', async (req, res) => {
 });
 mobileRouter.post('/seed-data', async (req, res) => {
     await MobileService.seedData();
-    res.status(200).json({ message: 'Data seeded successfully' });
+    res.status(200).json({
+        status: '200',
+        message: ' seeded successfully',
+        data: req.body,
+        time: new Date(),
+    });
 });
 mobileRouter.get('/mobile/color/:color', async (req, res) => {
     await mobileController.getMobilesByColor(req, res);
@@ -36,6 +41,10 @@ mobileRouter.put('/mobile/:brand', async (req, res) => {
     await mobileController.updateMobileByBrand(req, res);
 });
 mobileRouter.get('*', (req, res) => {
-    res.status(404).json({ message: 'Not Found' });
+    res.status(404).json({
+        status: '404',
+        message: ' Not Found',
+        time: new Date(),
+    });
 });
 export default mobileRouter;

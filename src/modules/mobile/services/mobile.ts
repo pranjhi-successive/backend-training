@@ -1,4 +1,4 @@
-import { type Mobile } from '../../../entities/MobileInterface';
+import { type Mobile } from '../entities/MobileInterface';
 import mobileData from '../../../utils/mobile';
 import MobileRepository from '../repository/Mobile';
 import MobileModel from '../repository/model/Mobile';

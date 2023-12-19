@@ -1,5 +1,5 @@
 import { Schema } from 'mongoose';
-import { type Mobile } from '../../../../entities/MobileInterface';
+import { type Mobile } from '../../entities/MobileInterface';
 
 const mobileSchema = new Schema<Mobile>({
     brand: { type: String, required: true },

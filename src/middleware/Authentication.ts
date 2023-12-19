@@ -22,7 +22,7 @@ class AuthMiddleware {
         const token = req.headers.authorization?.split(' ')[0];
 
         if (!token) {
-            res.status(401).json({ message: 'Please enter token' });
+            res.status(401).json({ status: '401', message: 'Please enter token' });
             return;
         }
 

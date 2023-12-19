@@ -1,6 +1,6 @@
 import Repository from '../../../lib/base/Repository';
-
-import { type ICountry, CountryModel } from '../../../models/Countries';
+import { ICountry } from '../entities/CountryInterface';
+import { CountryModel } from './model/mobile';
 
 class Country extends Repository<ICountry> {
     constructor() {
@@ -24,7 +24,7 @@ class Country extends Repository<ICountry> {
                 { PlayersName: playerName },
             );
         } catch (error) {
-            // console.error('Error adding player:', error);
+            // // console.error('Error adding player:', error);
         }
     };
 
@@ -42,7 +42,7 @@ class Country extends Repository<ICountry> {
                 { PlayersName: playerName },
             );
         } catch (error) {
-            // console.error(`Error removing player from ${countryName}:`, error);
+            // // console.error(`Error removing player from ${countryName}:`, error);
         }
     };
 }

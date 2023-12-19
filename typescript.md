@@ -85,7 +85,7 @@ Represents the absence of a type.
 
 ```typescript
 function logMessage(): void {
-  console.log("This is a log message");
+  // console.log("This is a log message");
 }
 ```
 # TypeScript: Classes and Interfaces
@@ -107,7 +107,7 @@ class Animal {
   }
 
   makeSound(): void {
-    console.log("Some generic sound");
+    // console.log("Some generic sound");
   }
 }
 ```
@@ -121,7 +121,7 @@ You can use inheritance to create a subclass that inherits properties and method
 ```typescript
 class Dog extends Animal {
   bark(): void {
-    console.log("Woof! Woof!");
+    // console.log("Woof! Woof!");
   }
 }
 
@@ -152,7 +152,7 @@ class Circle implements Shape {
 }
 
 const myCircle = new Circle(5, "red");
-console.log(myCircle.area()); // Output: 78.54
+// console.log(myCircle.area()); // Output: 78.54
 ```
 ### Extending Interfaces
 You can extend interfaces to create more specific interfaces.

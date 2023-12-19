@@ -11,18 +11,32 @@ class Controller {
 
     static async create(req: Request, res: Response): Promise<void> {
         const userData = req.body;
-        const validationResult = Validation.create(userData);
+        // // console.log(userData);
+        const validationResult = Validation.validate(userData);
+
+        // // console.log('reached here');
         if (validationResult.error) {
-            res.status(400).json({ error: validationResult.error.details[0].message });
+            res.status(400).json({
+                status: '400', message: 'validation error', time: new Date(), error: validationResult.error.details[0].message,
+            });
             return;
         }
-        const { name, password } = userData;
+        // const { name, password } = userData;
         try {
-            const a = await Services.create(name, password);
-            res.status(200).json({ message: 'Data added Successfully', data: a });
+            const result = await Services.create(userData);
+            res.status(200).json({
+                status: 'success',
+                message: 'Data added successfully',
+                data: result,
+                time: new Date(),
+            });
         } catch (error) {
-            console.error('Error creating user:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+            // console.error('Error creating user:', error);
+            res.status(500).json({
+                status: 'error',
+                time: new Date(),
+                error: 'Internal Server Error',
+            });
         }
     }
 
@@ -32,13 +46,23 @@ class Controller {
         try {
             const user = await Services.findUserByUsername(name);
             if (user) {
-                res.status(200).json(user);
+                res.status(200).json({
+                    status: 'success',
+                    message: 'successfull',
+                    data: user,
+                    time: new Date(),
+                });
             } else {
-                res.status(404).json({ message: 'User not found' });
+                res.status(404).json({ status: 'error', message: 'User not found', time: new Date() });
             }
-        } catch (error) {
-            // console.error('Error getting user by name:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
+        } catch (error:any) {
+            // // console.error('Error getting user by name:', error);
+            res.status(500).json({
+                status: 'error',
+                time: new Date(),
+                message: 'Internal Server Error',
+                error: error.message,
+            });
         }
     }
 }

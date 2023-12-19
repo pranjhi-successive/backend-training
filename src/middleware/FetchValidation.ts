@@ -18,9 +18,9 @@ class Validation {
         next: NextFunction,
     ): any => {
         const route = req.path;
-        // // console.log(route);
+        // // // // console.log(route);
         const rules = data2[route];
-        // // console.log(rules);
+        // // // // console.log(rules);
 
         if (rules) {
             const { error } = Joi.object(rules).validate(req.body, {

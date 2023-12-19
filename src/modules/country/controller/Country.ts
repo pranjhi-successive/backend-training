@@ -8,7 +8,7 @@ class Country {
     path: string;
 
     constructor() {
-        // console.log('CountryController constructor called');
+        // // // console.log('CountryController constructor called');
         this.countryService = new CountryService();
         this.path = '/country';
     }
@@ -24,7 +24,7 @@ class Country {
                 time: new Date(),
             });
         } catch (error) {
-            // console.error('Error getting country by name:', error);
+            // // console.error('Error getting country by name:', error);
             res.status(500).json({
                 status: '500',
                 message: ' Internal Server Error',
@@ -36,7 +36,7 @@ class Country {
     async addPlayer(req: Request, res: Response): Promise<any> {
         const { countryName, playerName } = req.body;
         try {
-            // console.log('this.countryService:', this.countryService);
+            // // // console.log('this.countryService:', this.countryService);
             const add = await this.countryService.addPlayer(countryName, playerName);
             res.status(200).json({
                 status: '200',
@@ -45,7 +45,7 @@ class Country {
                 time: new Date(),
             });
         } catch (error) {
-            // console.error('Error adding player to country:', error);
+            // // console.error('Error adding player to country:', error);
             res.status(500).json({
                 status: '500',
                 message: ' Internal Server Error',
@@ -69,7 +69,7 @@ class Country {
                 time: new Date(),
             });
         } catch (error) {
-            // console.error('Error removing player from country:', error);
+            // // console.error('Error removing player from country:', error);
             res.status(500).json({
                 status: '500',
                 message: ' Internal Server Error',

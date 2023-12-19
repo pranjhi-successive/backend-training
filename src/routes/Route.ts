@@ -59,7 +59,9 @@ router.post(
     validationMiddleware.path,
     ValidationMiddleware.validateRegistration,
     (req: Request, res: Response) => {
-        res.status(200).json({ message: 'Registration successful' });
+        res.status(200).json({
+            status: '200', message: 'Registration successful', time: new Date(), data: req.body,
+        });
     },
 );
 const healthCheck = new HealthCheck();

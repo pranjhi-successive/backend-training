@@ -98,4 +98,4 @@ export const mobileData = [
     },
 ];
 export default mobileData;
-// console.log(mobileData);
+// // // console.log(mobileData);

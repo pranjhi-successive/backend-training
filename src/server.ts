@@ -18,7 +18,7 @@ class Server {
     private readonly config: ServerConfig;
 
     constructor(config: ServerConfig) {
-        // // console.log(config);
+        // // // // console.log(config);
         this.config = config;
         this.app = express();
         this.database = new Database();
@@ -40,7 +40,7 @@ class Server {
     run = async (): Promise<void> => {
         await this.database.connect();
     // await database.seed();
-    // // console.log(database.seed());
+    // // // // console.log(database.seed());
     };
 
     public listen(): any {

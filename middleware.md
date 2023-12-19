@@ -21,7 +21,7 @@ Middleware in web development refers to software components that lie between an 
 ```javascript
 // loggerMiddleware.js
 const loggerMiddleware = (req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  // console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 };
 
@@ -60,7 +60,7 @@ This middleware checks for a valid authentication token in the request headers b
 ```javascript
 // errorHandlerMiddleware.js
 const errorHandlerMiddleware = (err, req, res, next) => {
-  console.error(err.stack);
+  // console.error(err.stack);
   res.status(500).send('Internal Server Error');
 };
 

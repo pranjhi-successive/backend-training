@@ -1,7 +1,7 @@
 import { type Model, type Document } from 'mongoose';
 import Repository from '../../../lib/base/Repository';
 // import { MobileModel } from "./model/Mobile";
-import { type Mobile } from '../../../entities/MobileInterface';
+import { type Mobile } from '../entities/MobileInterface';
 
 class MobileRepository extends Repository<Mobile> {
     protected readonly additionalProperty: string;
@@ -16,7 +16,7 @@ class MobileRepository extends Repository<Mobile> {
             const newMobile = await this.model.create(data);
             return newMobile;
         } catch (error) {
-            // console.error('Error creating mobile:', error);
+            // // console.error('Error creating mobile:', error);
             throw new Error('Error creating mobile');
         }
     }
@@ -26,7 +26,7 @@ class MobileRepository extends Repository<Mobile> {
             const mobiles = await this.model.find({});
             return mobiles;
         } catch (error) {
-            // console.error('Error fetching mobiles:', error);
+            // // console.error('Error fetching mobiles:', error);
             throw new Error('Error fetching mobiles');
         }
     }
@@ -40,7 +40,7 @@ class MobileRepository extends Repository<Mobile> {
 
             return deletedMobile ? (deletedMobile as Mobile) : null;
         } catch (error) {
-            // console.error('Error deleting mobile:', error);
+            // // console.error('Error deleting mobile:', error);
             throw new Error('Error deleting mobile: ');
         }
     }

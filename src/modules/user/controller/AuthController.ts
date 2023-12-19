@@ -1,23 +1,25 @@
 // import { Express } from 'express';
 import { Router, Request, Response } from 'express';
 import Services from '../services/User';
-import { generateToken } from '../../../middleware/AuthModule';
+// import { generateToken } from '../services/AuthModule';
 
 const authController = Router();
 // const userServices = new Services();
 authController.post('/signup', async (req:Request, res: Response):Promise<void> => {
-    const { name, password } = req.body;
+    // const { name, password } = req.body;
     try {
-        const existingUser = await Services.findUserByUsername(name);
+        const existingUser = await Services.findUserByUsername(req.body.name);
         if (existingUser) {
-            res.status(400).json({ message: 'user exist already' });
+            res.status(400).json({ status: '400', message: 'user exist already', time: new Date() });
             return;
         }
-        const newUser = await Services.create(name, password);
-        const token = generateToken(newUser._id);
-        res.status(201).json({ token });
+        const newUser = await Services.create(req.body);
+        const token = Services.generateToken(newUser._id);
+        res.status(200).json({
+            status: '200', message: 'user created', token, newUser, time: new Date(),
+        });
     } catch (error) {
-        console.error('Error during signup:', error);
+        // console.error('Error during signup:', error);
         res.status(500).json({
             status: '500',
             message: ' Internal Server Error',
@@ -31,24 +33,31 @@ authController.post('/login', async (req: Request, res: Response): Promise<void>
     try {
         const user = await Services.findUserByUsername(name);
         if (!user) {
-            res.status(401).json({ message: 'Invalid credentials' });
+            res.status(401).json({ message: 'Invalid credentials1' });
             return;
         }
 
         const passwordMatch = await Services.comparePasswords(password, user.password);
         if (!passwordMatch) {
-            res.status(401).json({ message: 'Invalid credentials' });
+            res.status(500).json({
+                status: 'error',
+                message: 'Invalid credentials',
+                time: new Date(),
+            });
             return;
         }
 
-        const token = generateToken(user._id);
-        res.status(200).json({ token });
-    } catch (error) {
-        console.error('Error during login:', error);
+        const token = Services.generateToken(user._id);
+        res.status(200).json({
+            status: '200', message: 'login successfull', data: user, token,
+        });
+    } catch (error:any) {
+        // console.error('Error during login:', error);
         res.status(500).json({
             status: '500',
             message: ' Internal Server Error',
             time: new Date(),
+            error: error.message,
         });
     }
 });

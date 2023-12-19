@@ -1,5 +1,5 @@
 import { type Model, type FilterQuery, type UpdateQuery } from 'mongoose';
-import { type IUser } from '../../../entities/UserInterface';
+import { type IUser } from '../entities/UserInterface';
 
 export default class Repository {
     private readonly userModel: Model<IUser>;
