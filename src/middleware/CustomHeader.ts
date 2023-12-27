@@ -1,10 +1,22 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, Router } from "express";
 
-const addCustomHeader = (headerName:string, headerValue:string) => {
-  return (req:Request,res:Response, next:NextFunction) => {
-    console.log(res.header(headerName, headerValue));
+class AddCustomHeaderMiddleware {
+  path: string;
+  private headerName: string;
+  private headerValue: string;
+  constructor(headerName: string, headerValue: string) {
+    this.headerName = headerName;
+    this.headerValue = headerValue;
+    this.path = "/header";
+  }
 
+  public addCustomHeader = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    res.header(this.headerName, this.headerValue);
     next();
   };
-};
-export default addCustomHeader;
+}
+export default AddCustomHeaderMiddleware;

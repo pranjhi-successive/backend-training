@@ -16,12 +16,10 @@ import {
 } from "../middleware/index.js";
 import { any } from "joi";
 
+
+
 const router = express.Router();
 
-router.use(rateLimiterMiddleware);
-router.use(addCustomHeader("hello", "header12345"));
-router.use(addCustomHeader("helloworld", "header12345ferf"));
-router.use(logger);
 
 router.use("/user", validationMiddlewareRequest);
 router.use("/post", validationMiddlewareRequest);
@@ -131,5 +129,6 @@ router.post("/secondRoute", validateRequest2, (req: Request, res: Response) => {
 router.get("/numeric", validateNumeric, (req: Request, res: Response) => {
   res.send(req.query);
 });
+
 
 export default router;

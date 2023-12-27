@@ -1,26 +1,23 @@
-import validateRequest, { userSchema } from "../middleware/validation.js";
-import rateLimiterMiddleware from "../middleware/limiter.js";
-import logger from "../middleware/Logger.js";
-import addCustomHeader from "../middleware/CustomHeader.js";
-import validateRegistration from "../middleware/FormValidation.js";
-import { authenticateJWT } from "../middleware/Authentication.js";
-import validateRequest2 from "../middleware/FetchValidation.js";
-import validationMiddlewareRequest from "../middleware/FetchValidation.js";
-import { Data } from "../utils/MockData.js";
-import { ipCheckMiddleware } from "../middleware/ipValidation.js";
-import validateNumeric from "./numericValidation.js";
+import AuthMiddleware from "../middleware/Authentication";
+import AddCustomHeaderMiddleware from "../middleware/CustomHeader";
 
+import Validation from "../middleware/FetchValidation";
+import ValidationMiddleware from "../middleware/FormValidation";
+import HealthCheck from "../middleware/HealthCheck";
+import IpVerification from "../middleware/ipValidation";
+import RateLimiter from "../middleware/limiter";
+import ValidateNumericMiddleware from "../middleware/numericValidation";
+import Logger from "../middleware/Logger";
+import SchemaValidation from "../middleware/validation";
 export {
-  validateRequest,
-  rateLimiterMiddleware,
-  logger,
-  addCustomHeader,
-  validateRegistration,
-  authenticateJWT,
-  validateRequest2,
-  validationMiddlewareRequest,
-  Data,
-  userSchema,
-  ipCheckMiddleware,
-  validateNumeric,
+  AuthMiddleware,
+  AddCustomHeaderMiddleware,
+  Validation,
+  ValidationMiddleware,
+  HealthCheck,
+  IpVerification,
+  RateLimiter,
+  ValidateNumericMiddleware,
+  Logger,
+  SchemaValidation,
 };

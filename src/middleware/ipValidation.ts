@@ -1,27 +1,36 @@
 import { Request, Response, NextFunction } from "express";
+class IpVerification {
+  path: string;
+  constructor() {
+    this.path = "/ip";
+  }
+  public ipCheckMiddleware = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const expectedIp = "::1";
 
-const ipCheckMiddleware = async (req:Request, res:Response, next:NextFunction) => {
-  const expectedIp = "::ffff:127.0.0.1";
+    try {
+      const clientIp = req.ip;
 
-  try {
-    const clientIp = req.ip;
+      if (clientIp !== expectedIp) {
+        return res.status(403).send({
+          status: false,
+          message: "Forbidden: Access denied. Invalid IP address.",
+        });
+      }
 
-    if (clientIp !== expectedIp) {
-      return res.status(403).send({
+      console.log("Valid Ip address!");
+      next();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({
         status: false,
-        message: "Forbidden: Access denied. Invalid IP address.",
+        message: "Internal Server Error",
       });
     }
+  };
+}
 
-    console.log("Valid Ip address!");
-    next();
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      status: false,
-      message: "Internal Server Error",
-    });
-  }
-};
-
-export { ipCheckMiddleware };
+export default IpVerification;
