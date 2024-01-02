@@ -40,7 +40,7 @@ class Database {
 
             console.log('Database Connected');
             await Database.seed();
-            await Database.seedMobile();
+            // await Database.seedMobile();
             await Database.seedUser();
             // await Database.csvSeed();
             // await Database.generateAndSaveMobileData();

@@ -23,12 +23,15 @@ export default function generateMobileData() {
         operatingSystem: faker.helpers.arrayElement(['Android', 'iOS']),
         isWaterResistant: faker.datatype.boolean(),
         additionalFeatures: faker.lorem.words(faker.number.int({ min: 1, max: 5 })).split(' '),
-        accessories: Array.from({ length: faker.number.int({ min: 1, max: 3 }) }, () => (
-            JSON.stringify({
-                name: faker.commerce.productName(),
-                type: faker.lorem.word(),
-                price: faker.number.int({ min: 10, max: 100 }),
-            }))),
+        accessories: JSON.stringify(Array.from(
+            { length: faker.number.int({ min: 1, max: 3 }) },
+            () => (
+                {
+                    name: faker.commerce.productName(),
+                    type: faker.lorem.word(),
+                    price: faker.number.int({ min: 10, max: 100 }),
+                }),
+        )),
         warranty: {
             validUntil: faker.date.future(),
             type: faker.lorem.word(),
