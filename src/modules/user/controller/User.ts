@@ -9,7 +9,7 @@ class Controller {
         this.services = services;
     }
 
-    static async create(req: Request, res: Response): Promise<void> {
+    static create = async (req: Request, res: Response): Promise<void> => {
         const userData = req.body;
         // // console.log(userData);
         const validationResult = Validation.validate(userData);
@@ -38,9 +38,9 @@ class Controller {
                 error: 'Internal Server Error',
             });
         }
-    }
+    };
 
-    static async getByName(req: Request, res: Response): Promise<void> {
+    static getByName = async (req: Request, res: Response): Promise<void> => {
         const { name } = req.params;
 
         try {
@@ -64,6 +64,6 @@ class Controller {
                 error: error.message,
             });
         }
-    }
+    };
 }
 export default Controller;

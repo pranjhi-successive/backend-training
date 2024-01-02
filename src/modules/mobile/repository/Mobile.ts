@@ -1,69 +1,57 @@
-import { type Model, type Document } from 'mongoose';
+import { type Document } from 'mongoose';
 import Repository from '../../../lib/base/Repository';
-// import { MobileModel } from "./model/Mobile";
-import { type Mobile } from '../entities/MobileInterface';
+import IMobile from '../entities/MobileInterface';
+import MobileModel from './model/Mobile';
 
-class MobileRepository extends Repository<Mobile> {
-    protected readonly additionalProperty: string;
-
-    constructor(model: Model<Mobile & Document>, additionalProperty: string) {
-        super(model);
-        this.additionalProperty = additionalProperty;
+class MobileRepository extends Repository<IMobile> {
+    constructor() {
+        super(MobileModel);
     }
 
-    async createMobile(data: any): Promise<Mobile & Document> {
-        try {
-            const newMobile = await this.model.create(data);
-            return newMobile;
-        } catch (error) {
-            // // console.error('Error creating mobile:', error);
-            throw new Error('Error creating mobile');
-        }
-    }
+    createMobile = async (data: any): Promise<IMobile & Document> => {
+        const newMobile = await this.model.create(data);
+        return newMobile;
+    };
 
-    async getAllMobiles(): Promise<Array<Mobile & Document>> {
-        try {
-            const mobiles = await this.model.find({});
-            return mobiles;
-        } catch (error) {
-            // // console.error('Error fetching mobiles:', error);
-            throw new Error('Error fetching mobiles');
-        }
-    }
+    getModelNumber = async (data:any): Promise<any> => {
+        const mobile = await this.model.find({ modelNumber: data });
+        return mobile;
+    };
 
-    async deleteMobileByBrand(brand: string): Promise<Mobile | null> {
-        try {
-            const deletedMobile = await this.model
-                .findOneAndDelete({ brand })
-                .lean()
-                .exec();
+    getAllMobiles = async (): Promise<IMobile[]> => {
+        const mobiles = await this.model.find({});
+        return mobiles;
+    };
 
-            return deletedMobile ? (deletedMobile as Mobile) : null;
-        } catch (error) {
-            // // console.error('Error deleting mobile:', error);
-            throw new Error('Error deleting mobile: ');
-        }
-    }
+    deleteMobileByBrand = async (brand: string): Promise<IMobile | null> => {
+        const deletedMobile = await this.model
+            .findOneAndDelete({ brand })
+            .lean()
+            .exec();
+        return deletedMobile ? (deletedMobile as IMobile) : null;
+    };
 
-    async updateMobileByBrand(brand: string, updatedData: any): Promise<Mobile | null> {
-        try {
-            const updatedMobile = await this.model
-                .findOneAndUpdate({ brand }, { $set: updatedData }, { new: true })
-                .lean()
-                .exec();
-            return updatedMobile ? (updatedMobile as Mobile) : null;
-        } catch (error) {
-            throw new Error('Error updating mobile: ');
-        }
-    }
+    updateMobileByBrand = async (brand: string, updatedData: any): Promise<IMobile | null> => {
+        const updatedMobile = await this.model
+            .findOneAndUpdate({ brand }, { $set: updatedData }, { new: true })
+            .lean()
+            .exec();
+        return updatedMobile ? (updatedMobile as IMobile) : null;
+    };
 
-    async getMobilesByColor(color: string): Promise<Array<Mobile & Document>> {
-        try {
-            const mobiles = await this.model.find({ color });
-            return mobiles;
-        } catch (error) {
-            throw new Error('Error getting mobiles by color');
-        }
-    }
+    getMobilesByColor = async (color: string): Promise<Array<IMobile & Document>> => {
+        const mobiles = await this.model.find({ color });
+        return mobiles;
+    };
+
+    getAllMobilesPaginated = async (skip: number, limit: number): Promise<IMobile[]> => {
+        const mobiles = await this.model.find({}).skip(skip).limit(limit);
+        return mobiles;
+    };
+
+    getTotalMobiles = async (): Promise<number> => {
+        const totalMobiles = await this.model.countDocuments({});
+        return totalMobiles;
+    };
 }
 export default MobileRepository;

@@ -1,6 +1,6 @@
 import { type Document } from 'mongoose';
 
-export interface Mobile extends Document {
+ interface IMobile extends Document{
   brand: string;
   modelNumber: string;
   price: number;
@@ -31,4 +31,7 @@ export interface Mobile extends Document {
     validUntil?: Date;
     type?: string;
   };
+  image: string;
+
 }
+export default IMobile;

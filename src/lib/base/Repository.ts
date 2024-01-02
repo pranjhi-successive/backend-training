@@ -12,25 +12,25 @@ export default class Repository<T extends Document> {
         this.model = model;
     }
 
-    async findOne(conditions: FilterQuery<T>): Promise<T | null> {
+    findOne = async (conditions: FilterQuery<T>): Promise<T | null> => {
         const result = await this.model.findOne(conditions).exec();
         return result;
-    }
+    };
 
-    async updateOne(
+    updateOne = async (
         conditions: FilterQuery<T>,
         update: UpdateQuery<T>,
-    ): Promise<void> {
+    ): Promise<void> => {
         await this.model.updateOne(conditions, update).exec();
-    }
+    };
 
-    async create(data: Partial<T>): Promise<T> {
+    create = async (data: Partial<T>): Promise<T> => {
         const result = await this.model.create(data);
         return result;
-    }
+    };
 
-    async findAll(conditions: FilterQuery<T> = {}): Promise<T[]> {
+    findAll = async (conditions: FilterQuery<T> = {}): Promise<T[]> => {
         const result = await this.model.find(conditions).exec();
         return result;
-    }
+    };
 }

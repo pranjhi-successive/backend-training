@@ -1,4 +1,7 @@
 import express from 'express';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import cors from 'cors';
+import morgan from 'morgan';
 import router from './routes/Route';
 import Database from './lib/Database';
 
@@ -31,6 +34,8 @@ class Server {
 
     private configureMiddleware(): any {
         this.app.use(express.json());
+        this.app.use(cors());
+        this.app.use(morgan('dev'));
     }
 
     private configureRoutes(): any {
@@ -40,7 +45,7 @@ class Server {
     run = async (): Promise<void> => {
         await this.database.connect();
     // await database.seed();
-    // // // // console.log(database.seed());
+    // console.log(database.seed());
     };
 
     public listen(): any {

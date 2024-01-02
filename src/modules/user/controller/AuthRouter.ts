@@ -1,11 +1,12 @@
+/* eslint-disable no-console */
 // import { Express } from 'express';
 import { Router, Request, Response } from 'express';
 import Services from '../services/User';
 // import { generateToken } from '../services/AuthModule';
 
-const authController = Router();
+const authRouter = Router();
 // const userServices = new Services();
-authController.post('/signup', async (req:Request, res: Response):Promise<void> => {
+authRouter.post('/signup', async (req:Request, res: Response):Promise<void> => {
     // const { name, password } = req.body;
     try {
         const existingUser = await Services.findUserByUsername(req.body.name);
@@ -19,7 +20,7 @@ authController.post('/signup', async (req:Request, res: Response):Promise<void> 
             status: '200', message: 'user created', token, newUser, time: new Date(),
         });
     } catch (error) {
-        // console.error('Error during signup:', error);
+        console.error('Error during signup:', error);
         res.status(500).json({
             status: '500',
             message: ' Internal Server Error',
@@ -27,7 +28,7 @@ authController.post('/signup', async (req:Request, res: Response):Promise<void> 
         });
     }
 });
-authController.post('/login', async (req: Request, res: Response): Promise<void> => {
+authRouter.post('/login', async (req: Request, res: Response): Promise<void> => {
     const { name, password } = req.body;
 
     try {
@@ -52,7 +53,7 @@ authController.post('/login', async (req: Request, res: Response): Promise<void>
             status: '200', message: 'login successfull', data: user, token,
         });
     } catch (error:any) {
-        // console.error('Error during login:', error);
+        console.error('Error during login:', error);
         res.status(500).json({
             status: '500',
             message: ' Internal Server Error',
@@ -62,4 +63,4 @@ authController.post('/login', async (req: Request, res: Response): Promise<void>
     }
 });
 
-export default authController;
+export default authRouter;

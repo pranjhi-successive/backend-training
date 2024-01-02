@@ -12,36 +12,34 @@ class Services {
         this.repository = repository;
     }
 
-    static async create(userData :IUser) :Promise<any> {
+    static create = async (userData :IUser) :Promise<any> => {
         const salt: string = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(userData.password, salt);
-        // // console.log('new user ', userData.password);
+        // console.log('new user ', userData.password);
         const user = await userModel.create({ ...userData, password: hashedPassword });
         return user;
-    }
+    };
 
-    static async findUserByUsername(name: string): Promise<IUser | null> {
-        return userModel.findOne({ name });
-    }
+    // eslint-disable-next-line max-len
+    static findUserByUsername = async (name: string): Promise<IUser | null> => userModel.findOne({ name });
 
-    async update(name: string, data: Partial<IUser>): Promise<void> {
+    update = async (name: string, data: Partial<IUser>): Promise<void> => {
         const result = await this.repository.updateOne({ name }, data);
         return result;
-    }
+    };
 
-    async getAllUsers(): Promise<IUser[]> {
+    getAllUsers = async (): Promise<IUser[]> => {
         const result = await this.repository.find({});
         return result;
-    }
+    };
 
-    async deleteUser(name: string): Promise<void> {
+    deleteUser = async (name: string): Promise<void> => {
         const result = await this.repository.deleteOne({ name });
         return result;
-    }
+    };
 
-    static async comparePasswords(candidatePassword: string, hashedPassword: string) {
-        return bcrypt.compare(candidatePassword, hashedPassword);
-    }
+    // eslint-disable-next-line max-len
+    static comparePasswords = async (candidatePassword: string, hashedPassword: string) => bcrypt.compare(candidatePassword, hashedPassword);
 
     static generateToken = (userId: string): string => jwt.sign({ userId }, 'hello', { expiresIn: '1h' });
 
@@ -54,14 +52,9 @@ class Services {
             res.status(401).json({ status: '401', message: 'Unauthorized', time: new Date() });
             return;
         }
-
-        try {
-            const decoded: IDecodedToken = Services.verifyToken(token);
-            req.userId = decoded.userId;
-            next();
-        } catch (error) {
-            res.status(401).json({ status: '401', message: 'Unauthorized', time: new Date() });
-        }
+        const decoded: IDecodedToken = Services.verifyToken(token);
+        req.userId = decoded.userId;
+        next();
     };
 }
 export default Services;

@@ -1,13 +1,13 @@
-import { type Mobile } from '../entities/MobileInterface';
 import mobileData from '../../../utils/mobile';
+import IMobile from '../entities/MobileInterface';
 import MobileRepository from '../repository/Mobile';
 import MobileModel from '../repository/model/Mobile';
 
 class MobileService {
     private readonly repository: MobileRepository;
 
-    constructor(repository: MobileRepository) {
-        this.repository = repository;
+    constructor() {
+        this.repository = new MobileRepository();
     }
 
     static async seedData(): Promise<void> {
@@ -20,59 +20,51 @@ class MobileService {
         }
     }
 
-    async createMobile(data: any): Promise<Mobile> {
-        try {
-            const newMobile = await this.repository.createMobile(data);
-            return newMobile;
-        } catch (error) {
-            throw new Error('Error creating mobile: ');
-        }
-    }
+    createMobile = async (data: any): Promise<IMobile> => {
+        const newMobile = await this.repository.createMobile(data);
+        return newMobile;
+    };
 
-    // async getAllMobiles(): Promise<Mobile[]> {
-    //   // Return the data from the imported mobileData array
-    //   const mobile = mobileData;
-    //   // return mobile;
-    // }
-    async getAllMobiles(): Promise<Mobile[]> {
+    getModelNumber = async (data: string): Promise<IMobile> => {
+        const newModel = await this.repository.getModelNumber(data);
+
+        return newModel;
+    };
+
+    getAllMobiles = async (): Promise<IMobile[]> => {
         const mobiles = await this.repository.getAllMobiles();
         return mobiles;
-    }
+    };
 
-    async getMobileById(id: string): Promise<Mobile | null> {
-        try {
-            const mobile = await this.repository.findOne({ _id: id });
-            return mobile;
-        } catch (error) {
-            throw new Error('Error getting mobile by ID');
-        }
-    }
+    getMobileById = async (id: string): Promise<IMobile | null> => {
+        const mobile = await this.repository.findOne({ _id: id });
+        return mobile;
+    };
 
-    async deleteMobileByBrand(brand: string): Promise<Mobile | null> {
-        try {
-            const deletedMobile = await this.repository.deleteMobileByBrand(brand);
-            return deletedMobile;
-        } catch (error) {
-            throw new Error('Error deleting mobile: ');
-        }
-    }
+    deleteMobileByBrand = async (brand: string): Promise<IMobile | null> => {
+        const deletedMobile = await this.repository.deleteMobileByBrand(brand);
+        return deletedMobile;
+    };
 
-    async updateMobileByBrand(brand: string, updatedData: any): Promise<Mobile | null> {
-        try {
-            const updatedMobile = await this.repository.updateMobileByBrand(brand, updatedData);
-            return updatedMobile;
-        } catch (error) {
-            throw new Error('Error updating mobile: ');
-        }
-    }
+    updateMobileByBrand = async (brand: string, updatedData: any): Promise<IMobile | null> => {
+        const updatedMobile = await this.repository.updateMobileByBrand(brand, updatedData);
+        return updatedMobile;
+    };
 
-    async getMobilesByColor(color: string): Promise<Mobile[]> {
-        try {
-            const mobiles = await this.repository.getMobilesByColor(color);
-            return mobiles;
-        } catch (error) {
-            throw new Error('Error getting mobiles by color');
-        }
-    }
+    getMobilesByColor = async (color: string): Promise<IMobile[]> => {
+        const mobiles = await this.repository.getMobilesByColor(color);
+        return mobiles;
+    };
+
+    getAllMobilesPaginated = async (page: number, itemsPerPage: number): Promise<IMobile[]> => {
+        const skip = (page - 1) * itemsPerPage;
+        const mobiles = await this.repository.getAllMobilesPaginated(skip, itemsPerPage);
+        return mobiles;
+    };
+
+    getTotalMobiles = async (): Promise<number> => {
+        const totalMobiles = await this.repository.getTotalMobiles();
+        return totalMobiles;
+    };
 }
 export default MobileService;

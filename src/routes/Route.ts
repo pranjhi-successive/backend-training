@@ -16,7 +16,10 @@ import CountryController from '../modules/country/controller/Country';
 // import { MobileController } from "../modules/mobile/controller/Mobile";
 import mobileRouter from '../modules/mobile/route';
 import userRouter from '../modules/user/UserRoutes';
-import authController from '../modules/user/controller/AuthController';
+import authRouter from '../modules/user/controller/AuthRouter';
+import bulk from '../modules/mobile/bulkUpload/broute';
+
+// const bulkr = require('../modules/bulkUpload/broute');
 
 const router = express.Router();
 
@@ -109,7 +112,8 @@ router.post('/name', async (req, res) => {
     await countryController.getCountryByName(req, res);
 });
 router.use('/user', userRouter);
-router.use('/auth', authController);
+router.use('/auth', authRouter);
 router.use('/api', mobileRouter);
+router.use('/up', bulk);
 
 export default router;

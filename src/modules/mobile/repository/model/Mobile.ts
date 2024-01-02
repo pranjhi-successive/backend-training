@@ -1,6 +1,6 @@
 import { model } from 'mongoose';
-import { type Mobile } from '../../entities/MobileInterface';
+import IMobile from '../../entities/MobileInterface';
 import mobileSchema from '../schema/Mobile';
 
-const MobileModel = model<Mobile>('Mobile', mobileSchema);
+const MobileModel = model<IMobile>('Mobile', mobileSchema);
 export default MobileModel;

@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
-import { type Mobile } from '../../entities/MobileInterface';
+import IMobile from '../../entities/MobileInterface';
 
-const mobileSchema = new Schema<Mobile>({
+const mobileSchema = new Schema<IMobile>({
     brand: { type: String, required: true },
     modelNumber: { type: String, required: true },
     price: { type: Number, required: true },
@@ -35,5 +35,9 @@ const mobileSchema = new Schema<Mobile>({
         validUntil: { type: Date },
         type: { type: String },
     },
+    image: { type: String, required: true },
 });
+
+mobileSchema.index({ modelNumber: 1, color: 1 }, { unique: true });
+
 export default mobileSchema;
