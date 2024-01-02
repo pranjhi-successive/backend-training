@@ -6,6 +6,7 @@ import MobileModel from '../modules/mobile/repository/model/Mobile';
 import dataUser from '../utils/User';
 import { CountryModel } from '../modules/country/repository/model/mobile';
 import userModel from '../modules/user/repository/model/user';
+// import importUser from '../modules/mobile/bulkUpload/controller';
 // import generateMobileData from '../modules/bulkUpload/Data';
 // import generateMobileData from '../modules/bulkUpload/Data';
 
@@ -41,6 +42,7 @@ class Database {
             await Database.seed();
             await Database.seedMobile();
             await Database.seedUser();
+            // await Database.csvSeed();
             // await Database.generateAndSaveMobileData();
         } catch (error) {
             console.error('DATABASE CONNECTION FAILED:', error);
@@ -94,6 +96,15 @@ class Database {
         }
     };
 
+    // static csvSeed = async ():Promise<void> => {
+    //     try {
+    //         const csvPath : string = req.file?.path || ' ';
+    //     const jsonObj = await csvtojson().fromFile(csvPath);
+    //         await userModel.insertMany(jsonObj);
+    //     } catch (error) {
+    //         console.error('Error in seeding ', error);
+    //     }
+    // };
     // static generateAndSaveMobileData = async () => {
     //     const mobileDataList = Array.from({ length: 100 }, generateMobileData);
     //     console.log(mobileDataList);

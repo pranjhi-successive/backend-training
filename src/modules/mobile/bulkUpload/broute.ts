@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express, { Express } from 'express';
 import multer from 'multer';
 import path from 'path';
@@ -9,7 +10,11 @@ const storage = multer.diskStorage({
         cb(null, './public/uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+        cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
+        console.log('field = ', file.fieldname);
+        console.log('originalname =', file.originalname);
+        // cb(null, file.originalname);
     },
 });
 

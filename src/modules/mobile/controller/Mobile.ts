@@ -15,10 +15,10 @@ class MobileController {
     }
 
     createMobile = async (req: Request, res: Response): Promise<void> => {
-        // console.log('Reached create controller');
+        console.log('Reached create controller');
         try {
             const data = req.body;
-            // console.log('Data:', data);
+            console.log('Data:', data);
             const createdMobile = await this.service.createMobile(data);
             res.status(201).json({
                 status: 'success',
@@ -36,25 +36,6 @@ class MobileController {
         }
     };
 
-    // getAllMobiles = async (req: Request, res: Response): Promise<any> => {
-    //     // console.log('Reached controller');
-    //     try {
-    //         const mobiles = await this.service.getAllMobiles();
-    //         // const data = mobileData;
-    //         res.status(200).json({
-    //             status: 'success',
-    //             data: mobiles,
-    //             time: new Date(),
-    //         });
-    //     } catch (error) {
-    //         // console.error('Error getting all mobiles:', error);
-    //         res.status(500).json({
-    //             status: 'error',
-    //             message: 'Internal Server Error',
-    //             time: new Date(),
-    //         });
-    //     }
-    // };
     getAllMobiles = async (req: Request, res: Response): Promise<any> => {
         // console.log('Reached controller');
         try {
