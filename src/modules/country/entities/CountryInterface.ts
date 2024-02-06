@@ -1,6 +1,6 @@
-import { type Document } from 'mongoose';
+import IBase from '../../../lib/base/interface';
 
-export interface ICountry extends Document {
+export interface ICountry extends IBase {
   countryName: string;
   playersName: string[];
 }

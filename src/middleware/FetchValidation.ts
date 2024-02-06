@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { type Request, type Response, type NextFunction } from 'express';
-import data2 from '../utils/Data';
+import data2 from '../utils/data';
 
 class Validation {
     userpath: string;
@@ -18,9 +18,7 @@ class Validation {
         next: NextFunction,
     ): any => {
         const route = req.path;
-        // // // // console.log(route);
         const rules = data2[route];
-        // // // // console.log(rules);
 
         if (rules) {
             const { error } = Joi.object(rules).validate(req.body, {

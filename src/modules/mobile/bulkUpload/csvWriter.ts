@@ -1,14 +1,12 @@
 /* eslint-disable no-console */
 /* eslint-disable no-await-in-loop */
 import { createObjectCsvWriter } from 'csv-writer';
-import generateMobileData from './Data';
-// import IMobile from '../entities/MobileInterface';
-// import IMobile from '../entities/MobileInterface';
+import generateMobileData from './dataGenerate';
 
 const numberOfMobiles: number = parseInt(process.argv[2] ?? '20', 10);
 const batchSize = 30000;
-const csvWriter = createObjectCsvWriter({
-    path: '../../../../public/uploads/csv.csv',
+const getcsvWriter = (csvPath:string) => createObjectCsvWriter({
+    path: csvPath,
     header: [
         { id: 'brand', title: 'brand' },
         { id: 'modelNumber', title: 'modelNumber' },
@@ -25,7 +23,7 @@ const csvWriter = createObjectCsvWriter({
         { id: 'connectivity.cellular', title: 'connectivity.cellular' },
         { id: 'weight', title: 'weight' },
         { id: 'operatingSystem', title: 'operatingSystem' },
-        { id: 'isWaterResistant', title: 'waterResistant' },
+        { id: 'isWaterResistant', title: 'isWaterResistant' },
         { id: 'additionalFeatures', title: 'additionalFeatures' },
         { id: 'accessories', title: 'accessories' },
         { id: 'warranty.validUntil', title: 'warranty.validUntil' },
@@ -34,31 +32,31 @@ const csvWriter = createObjectCsvWriter({
     ],
     headerIdDelimiter: '.',
 });
-// console.time('Generate Data');
-// const records = [];
-// const listing = 50;
-// for (let i = 0; i < listing; i += 1) {
-//     records.push(generateMobileData());
-// }
-// csvWriter.writeRecords(records)
-//     .then(() => {
-//         console.log('...Done');
-//     });
-// console.log(records);
-// console.timeEnd('Generate Data');
 
-const generateRecords = async (length:number):Promise<void> => {
+const generateRecords = async (writer:any, length:number):Promise<void> => {
     const records = Array.from({ length }, () => generateMobileData());
-    await csvWriter.writeRecords(records);
+
+    const fixedRecords = records.map((mobile) => ({
+        ...mobile, brand: mobile.modelNumber.split(' ')[0],
+    }));
+
+    await writer.writeRecords(fixedRecords);
 };
-(async ():Promise<void> => {
+const generateCsv = async (totalLength:number, csvPath:string):Promise<void> => {
+    const csvWriter = getcsvWriter(csvPath);
     console.time('generated data');
     let recordsGenerated = 0;
-    while (recordsGenerated < numberOfMobiles) {
-        const length = Math.min(batchSize, numberOfMobiles - recordsGenerated);
-        await generateRecords(length);
+    console.log('in generate csv');
+    while (recordsGenerated < totalLength) {
+        const length = Math.min(batchSize, totalLength - recordsGenerated);
+
+        await generateRecords(csvWriter, length);
         recordsGenerated += length;
         console.log(`${recordsGenerated} mobiles created`);
     }
     console.timeEnd('generated data');
-})();
+};
+
+generateCsv(numberOfMobiles, 'file.csv');
+
+export default generateCsv;

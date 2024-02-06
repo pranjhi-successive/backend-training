@@ -1,0 +1,23 @@
+const colors = [
+    'Phantom Gray',
+    'Sorta Sage',
+    'Frosted Black',
+    'Aurora White',
+    'Cosmic Black',
+    'Phantom Black',
+    'Red',
+    'Mystic Bronze',
+    'Graphite',
+    'Midnight Gray',
+    'Cloud White',
+    'Glacier Blue',
+    'Green',
+    'Aurora Black',
+    'Pacific Blue',
+    'Lunar Silver',
+    'Awesome Blue',
+    'Morning Mist',
+    'Arctic Blue',
+    'Aurora Gray',
+];
+export default colors;

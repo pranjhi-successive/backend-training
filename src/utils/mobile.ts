@@ -1,5 +1,3 @@
-// import { Mobile } from "../entities/MobileInterface";
-
 export const mobileData = [
     {
         brand: 'Samsung',
@@ -644,4 +642,3 @@ export const mobileData = [
     },
 ];
 export default mobileData;
-// // // console.log(mobileData);

@@ -4,6 +4,7 @@ import {
     type NextFunction,
     Router,
 } from 'express';
+import logger from '../lib/logger';
 
 class Logger {
     path: string;
@@ -16,8 +17,7 @@ class Logger {
         next: NextFunction,
     ): void => {
         const timeStamp = new Date().toString();
-        // eslint-disable-next-line no-console
-        console.log(`${timeStamp} ${req.method} ${req.url} ${req.ip}`);
+        logger.info(`${timeStamp} ${req.method} ${req.url} ${req.ip}`);
         next();
     };
 

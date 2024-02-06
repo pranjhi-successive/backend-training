@@ -9,22 +9,15 @@ class Country {
         this.countryRepository = new CountryRepository();
     }
 
-    async getCountryByName(countryName: string): Promise<ICountry | null> {
+    getCountryByName = async (countryName: string): Promise<ICountry | null> => {
         const result = await this.countryRepository.findCountryByName(countryName);
         return result;
-    }
+    };
 
     addPlayer = async (countryName: string, playerName: string[]): Promise<any> => {
     // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
         const result = await this.countryRepository.addPlayer(countryName, playerName);
         return result;
-    };
-
-    removePlayer = async (countryName: string, playerName: string[]): Promise<void> => {
-        await this.countryRepository.removePlayerFromCountry(
-            countryName,
-            playerName,
-        );
     };
 }
 

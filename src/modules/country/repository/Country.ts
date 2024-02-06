@@ -1,4 +1,5 @@
 import Repository from '../../../lib/base/Repository';
+import logger from '../../../lib/logger';
 import { ICountry } from '../entities/CountryInterface';
 import { CountryModel } from './model/mobile';
 
@@ -7,43 +8,22 @@ class Country extends Repository<ICountry> {
         super(CountryModel);
     }
 
-    public async findCountryByName(
+    findCountryByName = async (
         countryName: string,
-    ): Promise<ICountry | null> {
-        const country = await this.findOne({ CountryName: countryName });
+    ): Promise<ICountry | null> => {
+        const country = await this.findOne({ countryName });
+        logger.info('in repository', country);
         return country;
-    }
+    };
 
     addPlayer = async (
         countryName: string,
-        playerName: string[],
-    ): Promise<void> => {
-        try {
-            this.model.create(
-                { CountryName: countryName },
-                { PlayersName: playerName },
-            );
-        } catch (error) {
-            // // console.error('Error adding player:', error);
-        }
-    };
-
-    removePlayerFromCountry = async (
-        countryName: string,
-        playerName: string[],
-    ): Promise<void> => {
-        try {
-            // await CountryModel.updateOne(
-            //     { CountryName: countryName },
-            //     { PlayersName: playerName },
-            // );
-            this.model.updateOne(
-                { CountryName: countryName },
-                { PlayersName: playerName },
-            );
-        } catch (error) {
-            // // console.error(`Error removing player from ${countryName}:`, error);
-        }
+        playersName: string[],
+    ): Promise<ICountry> => {
+        const result = await this.model.create(
+            { countryName, playersName },
+        );
+        return result;
     };
 }
 

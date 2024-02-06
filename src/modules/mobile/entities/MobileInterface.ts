@@ -1,6 +1,6 @@
-import { type Document } from 'mongoose';
+import IBase from '../../../lib/base/interface';
 
- interface IMobile extends Document{
+ interface IMobile extends IBase{
   brand: string;
   modelNumber: string;
   price: number;
@@ -13,12 +13,12 @@ import { type Document } from 'mongoose';
   };
   releaseDate: Date;
   batteryCapacity: string;
-  connectivity: {
+  connectivity?: {
     wifi: boolean;
     bluetooth: boolean;
     cellular: boolean;
   };
-  weight?: number; // Optional
+  weight?: number;
   operatingSystem: string;
   isWaterResistant: boolean;
   additionalFeatures?: string[];

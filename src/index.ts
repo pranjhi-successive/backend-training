@@ -1,17 +1,5 @@
-// import { server } from "typescript";
 import { serverConfig } from './config';
 import Server from './server';
 
-const port = 4000;
-
-const serverInstance = new Server({
-    port,
-    host: 'localhost',
-    secretKey: 'hello',
-    customHeaderName: 'hello',
-    customHeaderValue: 'pranjhi',
-    mongoUrl: serverConfig.mongoUrl,
-});
-
-serverInstance.run();
+const serverInstance = new Server(serverConfig);
 serverInstance.listen();

@@ -17,20 +17,4 @@ export default class Validation {
 
         return schema.validate(data);
     }
-
-    static update(data: any): ValidationResult {
-        const schema = Joi.object({
-            name: Joi.string().min(3).max(50),
-            phone: Joi.string().min(10).max(15),
-            email: Joi.string().email(),
-            password: Joi.string().min(6),
-            address: Joi.object({
-                street: Joi.string(),
-                city: Joi.string(),
-                state: Joi.string(),
-            }),
-        });
-
-        return schema.validate(data);
-    }
 }

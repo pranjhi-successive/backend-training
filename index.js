@@ -14,16 +14,16 @@ const Math = (num1, num2) => {
     const csvString = `${csvData.map((row) => row.join(',')).join('\n')}\n\n`;
     appendFileSync('Math Result.xlsx', csvString, 'utf-8');
 };
-// // console.log(process.argv);
+console.log(process.argv);
 const args = process.argv.slice(2);
 if (args.length < 2) {
-    // // console.log("Invalid!");
+    console.log("Invalid!");
 } else {
     const num1 = Number(args[0]);
     const num2 = Number(args[1]);
-    // // console.log(num1,num2);
+    console.log(num1,num2);
     if (!(num1 && num2)) {
-        // // console.log("undefined");
+        console.log("undefined");
     } else {
         Math(num1, num2);
     }

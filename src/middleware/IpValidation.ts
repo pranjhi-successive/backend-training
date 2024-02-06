@@ -1,4 +1,5 @@
 import { type Request, type Response, type NextFunction } from 'express';
+import logger from '../lib/logger';
 
 class IpVerification {
     path: string;
@@ -25,10 +26,10 @@ class IpVerification {
                 return;
             }
 
-            // // // console.log('Valid Ip address!');
+            logger.info('Valid Ip address!');
             next();
         } catch (error) {
-            // // // console.log(error);
+            logger.info(error);
             res.status(500).send({
                 status: false,
                 message: 'Internal Server Error',

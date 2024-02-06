@@ -1,35 +1,24 @@
 import express from 'express';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import cors from 'cors';
 import morgan from 'morgan';
-import router from './routes/Route';
+import router from './routes/routes';
 import Database from './lib/Database';
+import { IServerConfig } from './config';
 
-interface ServerConfig {
-  port: number;
-  host: string;
-  secretKey: string;
-  customHeaderName: string;
-  customHeaderValue: string;
-  mongoUrl: string;
-}
 class Server {
     private readonly app: express.Application;
 
     private readonly database: Database;
 
-    private readonly config: ServerConfig;
+    private readonly config: IServerConfig;
 
-    constructor(config: ServerConfig) {
-        // // // // console.log(config);
+    constructor(config: IServerConfig) {
         this.config = config;
         this.app = express();
-        this.database = new Database();
+        this.database = new Database(this.config.mongoUrl);
 
         this.configureMiddleware();
         this.configureRoutes();
-
-    //  await  database.connect();
     }
 
     private configureMiddleware(): any {
@@ -42,18 +31,31 @@ class Server {
         this.app.use('/', router);
     }
 
-    run = async (): Promise<void> => {
-        await this.database.connect();
-    // await database.seed();
-    // console.log(database.seed());
+    getApp() {
+        return this.app;
+    }
+
+    disconnectDB = async (): Promise<void> => {
+        await this.database.disconnect();
     };
 
-    public listen(): any {
+    connectDB = async (): Promise<void> => {
+        await this.database.connect();
+    };
+
+    static seed = async (): Promise<void> => {
+        await Database.seedAll();
+    };
+
+    listen = async (): Promise<void> => {
+        await this.connectDB();
+        await Server.seed();
+
         this.app.listen(this.config.port, () => {
             // eslint-disable-next-line no-console
             console.log(`App listening on port ${this.config.port}`);
         });
-    }
+    };
 }
 
 export default Server;

@@ -1,11 +1,11 @@
 import {
     type Model,
-    type Document,
     type FilterQuery,
     type UpdateQuery,
 } from 'mongoose';
+import IBase from './interface';
 
-export default class Repository<T extends Document> {
+export default class Repository<T extends IBase> {
     public readonly model: Model<T>;
 
     constructor(model: Model<T>) {
@@ -14,6 +14,11 @@ export default class Repository<T extends Document> {
 
     findOne = async (conditions: FilterQuery<T>): Promise<T | null> => {
         const result = await this.model.findOne(conditions).exec();
+        return result;
+    };
+
+    getById = async (id: string): Promise<T | null> => {
+        const result: T | null = await this.model.findById(id);
         return result;
     };
 
@@ -29,8 +34,12 @@ export default class Repository<T extends Document> {
         return result;
     };
 
-    findAll = async (conditions: FilterQuery<T> = {}): Promise<T[]> => {
-        const result = await this.model.find(conditions).exec();
+    deleteAll = async () => {
+        await this.model.deleteMany();
+    };
+
+    countDocuments = async (filters: FilterQuery<T>): Promise<number> => {
+        const result: number = await this.model.countDocuments(filters);
         return result;
     };
 }

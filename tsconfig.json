@@ -23,5 +23,5 @@
   },
   "include": [
     "src/**/*.ts" /* Include all TypeScript files in the src folder and its subdirectories */
-  ]
+, "src/modules/mobile/bulkUpload/csvWriter.ts", "public/bulkUpload.ts"  ]
 }
